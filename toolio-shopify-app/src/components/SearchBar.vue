@@ -1,8 +1,4 @@
 <template>
-  <!-- <v-text-field
-    label="Search Product"
-    class="rounded-r-0"
-  ></v-text-field> -->
   <v-text-field
     v-model="searchText"
     placeholder="Search product..."
@@ -10,7 +6,7 @@
     outlined
     dense
     clearable
-    color="indigo"
+    color="light-blue darken-4"
     @keydown.enter="searchProduct()"
     :rules="rules"
   ></v-text-field>
@@ -27,7 +23,7 @@
 
     methods: {
         searchProduct() {
-          if (this.searchText != null && this.searchText.length > 1)
+          if (this.searchText != null && this.searchText.length > 0)
           {
             // A title is entered into the search bar, send searchText to the parent component.
             this.$emit("searchProduct", this.searchText);

@@ -1,5 +1,4 @@
 <template>
-    <!--  -->
   <v-data-table 
     :headers="headers"
     class="elevation-1"
@@ -15,7 +14,7 @@
       No products found with the given title.
     </template>
     <template v-else v-slot:no-data>
-      Start searching to display data.
+      Start searching to display products.
     </template>
   </v-data-table>
 </template>

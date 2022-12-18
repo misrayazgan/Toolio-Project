@@ -1,41 +1,43 @@
 <template>
   <v-app>
-    <v-app-bar app outlined fixed color="white">
-      <!-- TO DO: Toolio + Shopify icon -->
+
+    <v-app-bar app elevation="1" fixed color="#19293e" dark>
+      <v-img
+        class="mx-2"
+        src="./assets/toolio_logo.png"
+        max-height="20"
+        max-width="20"
+        contain
+      ></v-img>      
       <v-toolbar-title>Toolio Shopify Store</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
 
     <v-main>
-      <v-container fluid id="mainContainer">
-        <v-row class="">
-          <v-col cols="12" md="3" sm="4"></v-col>
-          <v-col cols="12" md="6" sm="4" class="d-flex justify-center">
+      <v-container fluid class="mt-6">
+        <v-row >
+          <v-col cols="12" md="6" offset-md="3">
             <search-bar @searchProduct="getProducts($event)" />
-            <!-- <v-btn class="rounded-l-0" color="indigo" dark>Search</v-btn> -->
           </v-col>
-          <v-col cols="12" md="3" sm="4"></v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" md="2"></v-col>
-          <v-col cols="12" md="8">
+          <v-col cols="12" md="6" offset-md="3">
             <products-table :products="this.products" 
               :noProductsFound="noProductsFound" 
               :isLoading="isLoading" 
               :isSearchStarted="isSearchStarted"
             />
           </v-col>
-          <v-col cols="12" md="2"></v-col>
         </v-row>
       </v-container>
     </v-main>
+    
   </v-app>
 </template>
 
 <script>
   import SearchBar from '@/components/SearchBar.vue';
   import ProductsTable from '@/components/ProductsTable.vue'
-  //const dotenv = require("dotenv").config();
   
   export default {
     name: "App",
