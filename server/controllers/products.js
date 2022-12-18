@@ -6,7 +6,7 @@ const getProducts = async (req, res, next) => {
 
     if (keyword == null || keyword == "")
     {
-      return res.status(200).send("Please enter a product title.");
+      return res.status(200).send({ status: "success", msg: "Please enter a product title." });
     }
     else
     {
@@ -22,7 +22,7 @@ const getProducts = async (req, res, next) => {
 
           if (matchingProducts.length < 1)
           {
-            return res.status(200).send("No products found matching the provided title.");
+            return res.status(200).send({ status: "success", msg: "No products found matching the provided title." });
           }
     
           res.json({ products: matchingProducts });
@@ -30,11 +30,6 @@ const getProducts = async (req, res, next) => {
         .catch(error => console.log(error));
     }
   } catch (error) {
-    // res.status(500).send({
-    //             "code": -1,
-    //             "msg": error
-    //         });
-    console.error("ERROR:", error.message);   // TO DO: delete?
     next(error);
   } 
 };
