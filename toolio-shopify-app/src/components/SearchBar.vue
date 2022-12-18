@@ -10,8 +10,9 @@
     outlined
     dense
     clearable
-    @keydown.enter="searchProduct()"
     color="indigo"
+    @keydown.enter="searchProduct()"
+    :rules="rules"
   ></v-text-field>
 </template>
 
@@ -19,14 +20,18 @@
   export default {
     data () {
       return {
-        searchText: ""
+        searchText: "",
+        rules: []
       }
     },
 
     methods: {
-        searchProduct()
-        {
-            console.log("search text:", this.searchText);
+        searchProduct() {
+          if (this.searchText != null && this.searchText.length > 1)
+          {
+            // A title is entered into the search bar, send searchText to the parent component.
+            this.$emit("searchProduct", this.searchText);
+          }
         }
     }
   }
