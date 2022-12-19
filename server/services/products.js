@@ -1,7 +1,6 @@
 const dotenv = require("dotenv").config();
 const parser = require("parse-link-header");
-const fetch = (...args) =>
-	import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = require("node-fetch");
 const async = require("async");
 const cache = require("memory-cache");
 
@@ -31,7 +30,7 @@ const getAllProducts = function () {
         }
 
         fetch(url)
-          .then(response => {
+          .then(response => {            
             // Parse the link header of response to obtain the next page of products.
             const linkHeader = response.headers.get("link");
             const parsedHeader = parser(linkHeader);
@@ -56,7 +55,7 @@ const getAllProducts = function () {
             reject(error);
           });
           
-        // Call fetch every 1000 msec. 500/750msec results with duplicate calls, why?
+        // Call fetch every 1000 msec.
         setTimeout(callback, 1000);
       },
       function (error) {
@@ -73,8 +72,27 @@ const getAllProducts = function () {
       }
     );
   }); 
-}
+};
+
+const getProductsByTitle = (async (keyword) => {
+  keyword = keyword.toLowerCase();
+
+  try
+  {
+    const result = await getAllProducts();
+    const matchingProducts = result.products.filter(product => (product.title.toLowerCase().includes(keyword)));
+    //console.log(matchingProducts.length, "matching products have been found.");
+    
+    return matchingProducts;
+  }
+  catch (error)
+  {
+    console.log(error);
+    return error;
+  }
+});
 
 module.exports = {
   getAllProducts,
+  getProductsByTitle,
 };

@@ -1,4 +1,4 @@
-const service = require("../services/products");
+const productsService = require("../services/products");
 
 const getProducts = async (req, res, next) => {
   try {
@@ -11,23 +11,14 @@ const getProducts = async (req, res, next) => {
     else
     {
       // Title is provided, find the matching ones among all products and return them.
-      keyword = keyword.toLowerCase();
+      const matchingProducts = await productsService.getProductsByTitle(keyword);
+      
+      if (matchingProducts.length < 1)
+      {
+        return res.status(200).send({ status: "success", msg: "No products found matching the provided title." });
+      }
 
-      service.getAllProducts()
-        .then(allProducts => {
-          //console.log("Controller retrieved all products:\n", allProducts);
-          const matchingProducts = allProducts.products.filter(product => (product.title.toLowerCase().includes(keyword)));
-          console.log(matchingProducts.length, "matching products have been found.");
-          //console.log("match:\n", matchingProducts);
-
-          if (matchingProducts.length < 1)
-          {
-            return res.status(200).send({ status: "success", msg: "No products found matching the provided title." });
-          }
-    
-          res.json({ products: matchingProducts });
-        })
-        .catch(error => console.log(error));
+      res.json({ products: matchingProducts });
     }
   } catch (error) {
     next(error);

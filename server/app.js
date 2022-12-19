@@ -14,6 +14,14 @@ app.use("/products", productsRouter);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log(`Server is up on port ${port}.`, new Date().toUTCString());
-});
+if (process.env.NODE_ENV !== 'test')
+{
+  // listen causes problems with jest
+  app.listen(port, () => {
+    console.log(`Server is up on port ${port}.`);
+  });
+}
+else
+{
+  module.exports = app;
+}
