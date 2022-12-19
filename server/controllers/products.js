@@ -13,31 +13,21 @@ const getProducts = async (req, res, next) => {
       // Title is provided, find the matching ones among all products and return them.
       keyword = keyword.toLowerCase();
 
-      const matchingProducts = service.result.products.filter(product => (product.title.toLowerCase().includes(keyword)));
-      console.log(matchingProducts.length, "matching products have been found.");
+      service.getAllProducts()
+        .then(allProducts => {
+          //console.log("Controller retrieved all products:\n", allProducts);
+          const matchingProducts = allProducts.products.filter(product => (product.title.toLowerCase().includes(keyword)));
+          console.log(matchingProducts.length, "matching products have been found.");
+          //console.log("match:\n", matchingProducts);
 
-      if (matchingProducts.length < 1)
-      {
-        return res.status(200).send({ status: "success", msg: "No products found matching the provided title." });
-      }
-
-      res.json({ products: matchingProducts });
-
-      // service.getAllProducts()
-      //   .then(allProducts => {
-      //     //console.log("Controller retrieved all products:\n", allProducts);
-      //     const matchingProducts = allProducts.products.filter(product => (product.title.toLowerCase().includes(keyword)));
-      //     console.log(matchingProducts.length, "matching products have been found.");
-      //     //console.log("match:\n", matchingProducts);
-
-      //     if (matchingProducts.length < 1)
-      //     {
-      //       return res.status(200).send({ status: "success", msg: "No products found matching the provided title." });
-      //     }
+          if (matchingProducts.length < 1)
+          {
+            return res.status(200).send({ status: "success", msg: "No products found matching the provided title." });
+          }
     
-      //     res.json({ products: matchingProducts });
-      //   })
-      //   .catch(error => console.log(error));
+          res.json({ products: matchingProducts });
+        })
+        .catch(error => console.log(error));
     }
   } catch (error) {
     next(error);
