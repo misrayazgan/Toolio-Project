@@ -3,7 +3,7 @@
     :headers="headers"
     class="elevation-1"
     :items="products"
-    :items-per-page="20"
+    :items-per-page="10"
     :footer-props="{
       'items-per-page-options': [10, 20, 30, 40, 50]
     }"
@@ -31,8 +31,8 @@
     data () {
       return {
         headers: [
-          { text: 'ID', align: 'start', value: 'id' },
-          { text: 'Title', value: 'title' },
+          { text: "ID", align: "start", value: "id", width: "40%" },
+          { text: "Title", value: "title", width: "60%" },
         ]
       }
     }

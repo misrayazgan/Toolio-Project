@@ -1,7 +1,5 @@
 # Toolio Project
 
-## Description
-
 This project is a web application which provides an interface to search the products in the Toolio Shopify store by their titles, and displays the resulting products.
 
 ## Server for the toolio-shopify-app with Node.js
@@ -30,6 +28,14 @@ Start the server with the following command:
 
 ```
 node app.js
+```
+
+### Test
+
+Run the tests with the following command:
+
+```
+npm test
 ```
 
 ### Example

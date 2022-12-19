@@ -87,7 +87,6 @@ const getProductsByTitle = (async (keyword) => {
   }
   catch (error)
   {
-    console.log(error);
     return error;
   }
 });

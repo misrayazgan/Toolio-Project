@@ -56,15 +56,12 @@
 
         const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
         const API_URL = API_BASE_URL + "/products?title=" + titleToSearch;
-        console.log("url", API_URL);
   
         fetch(API_URL)
           .then(response => {
-            console.log("statusText", response.statusText);
             return response.json();
           })
           .then(products => {
-            console.log("products:", products);
             this.isLoading = false;
 
             if (products.products != null)
@@ -76,10 +73,9 @@
               this.noProductsFound = true;
             }
           })
-          .catch(error => {
+          .catch(() => {
             this.displayError = true;
             this.isLoading = false;
-            console.log(error);
           });
       }
     }
