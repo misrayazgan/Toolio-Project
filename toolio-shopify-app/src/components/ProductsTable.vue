@@ -13,7 +13,7 @@
     <template v-if="isSearchStarted && noProductsFound" v-slot:no-data>
       No products found with the given title.
     </template>
-    <template v-else v-slot:no-data>
+    <template v-else-if="!isSearchStarted" v-slot:no-data>
       Start searching to display products.
     </template>
   </v-data-table>

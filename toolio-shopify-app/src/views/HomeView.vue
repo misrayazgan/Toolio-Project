@@ -8,7 +8,7 @@
     <v-row v-if="displayError">
       <v-col cols="12" md="8" offset-md="2">
         <v-alert dense outlined dismissible type="error">
-          Oops! Something went wrong.
+          Oops! Something went wrong. Connection to server failed.
         </v-alert>
       </v-col>
     </v-row>
@@ -54,8 +54,8 @@
         this.isSearchStarted = true;
         this.displayError = false;
 
-        const PORT = 3000;
-        const API_URL = "http://localhost:" + PORT + "/products?title=" + titleToSearch;
+        const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
+        const API_URL = API_BASE_URL + "/products?title=" + titleToSearch;
         console.log("url", API_URL);
   
         fetch(API_URL)
